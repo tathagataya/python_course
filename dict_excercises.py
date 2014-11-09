@@ -1,4 +1,4 @@
-#!/usr/bin/env python -utt
+#!/usr/bin/python -utt
 # coding: utf-8
 
 from datetime import datetime
@@ -16,36 +16,51 @@ def choose_by_dict(key, d):
 	
 	Вопрос 4: упростите, убрав else
 	'''
+	#return d[key] if (key in d) else None
 	if key in d:
 		return d[key]
-	else:
-		return None
+	#else:
+	#	return None
 		
 		
 		
-# 5. Создать функцию, берущую из словаря значение по ключу,
 #    Если такого ключа нет, то выдавать значение из заданного
 #    кортежа значений по-умолчанию. Значения из него брать по
 #    очереди.
 
+#defaults = (1, 2, 3);
+#default_elements_fetched = 0;
+#defaults[default_elements_fetched % len(defaults)]
+
+def take_from_dict_with_defaults(key, d):
+	ret = None
+	if key in d:
+		ret = d[key]
+	else:
+		ret = take_from_dict_with_defaults.defaults[take_from_dict_with_defaults.default_elements_fetched % len(take_from_dict_with_defaults.defaults)]
+		take_from_dict_with_defaults.default_elements_fetched += 1
+	return ret
+
+take_from_dict_with_defaults.defaults = (1, 2, 3);
+take_from_dict_with_defaults.default_elements_fetched = 0;	
 
 
-
-def take_from_dict(d, key):
+def take_from_dict(key, d):
 	'''
 	Выдает значение словаря по ключу и удаляет его из словаря
 	- аналог метода словаря d.pop(key)
 	
 	Вопрос 6: исправить МНОГО ошибок, добавить значение по-умолчанию
 	'''
-	return d[key]
-	if key not in d:
+	ret = None
+	if key in d:
+		ret=d[key]
 		del d[key]
+	return ret
 		
 		
 		
-		
-def insert_in_dict_if_no(d, key, value):
+def insert_in_dict_if_no(key, d, value):
 	'''
 	Аналог метода словаря d.setdefault(key, default)
 	'''
@@ -88,13 +103,15 @@ def del_list_item(lst, x):
 		if a == x:
 			del lst[i]
 			
-			
+
+
 		
 if __name__=='__main__':
-	# При запуске модуля как программы посчитаем размер текущей
-	# директории и выведем на экран
+	lst = ['a', 'A', 'b', 'B', 'c', 'C']
 
-	print u'Размер директории "%s" = %d байт' % (
-		os.path.abspath('.'),
-		calc_dir_size('.'),
-	)
+	insert_in_lst_if_no("a", lst)
+	insert_in_lst_if_no("c", lst)
+	insert_in_lst_if_no("e", lst)
+	insert_in_lst_if_no("e", lst)
+	print lst
+
