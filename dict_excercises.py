@@ -1,8 +1,10 @@
 #!/usr/bin/python -utt
 # coding: utf-8
 
+from __future__ import print_function
 from datetime import datetime
 import os
+import sys
 
 
 
@@ -69,24 +71,49 @@ def insert_in_dict_if_no(key, d, value):
 	else:
 		d[key] = value
 		return value
-		
+
 ## 7. Создать по аналогии функцию, добавляющую значение в
 ##    список, только если такого значения там нет
+
+def insert_in_lst_if_no(element, lst):
+
+	if element not in lst:
+		lst.append(element)
+		
+	return lst
+	
 ## 8. Создать функцию, фильтрующую список по списку "банлиста",
 ##    То есть если элемент присутствует в банлисте, то удалять
 ##	  элемент из списка
 
+def filter_by_list(lst, banlst):
+	return [element for element in lst if element not in banlst]
 
+	'''
+	if element in banlist:
+		while element in lst:
+			lst.remove(element)
 
-
+	return lst
+	'''
 
 def del_list_item_by_index(lst, i):
 	'''
 	Удаляет элемент по индексу
-	
+	l
 	Вопрос 9: добавить проверку на существование элемента
-	'''
+	'''	
+	if not isinstance( i, ( int, long ) ):
+		print("index value", i, "not in integer")
+		return lst
+	if i < -len(lst) or i >= len(lst):
+		print ("index",i,"out of range")
+		return lst
 	del lst[i]
+	return lst
+	
+
+		
 	
 	
 	
@@ -107,11 +134,20 @@ def del_list_item(lst, x):
 
 		
 if __name__=='__main__':
-	lst = ['a', 'A', 'b', 'B', 'c', 'C']
+	lst = ['a', 'A', 'b', 'B', 'c', 'C']	
+	#banlst = ['a', 'b', 'c']
 
-	insert_in_lst_if_no("a", lst)
-	insert_in_lst_if_no("c", lst)
-	insert_in_lst_if_no("e", lst)
-	insert_in_lst_if_no("e", lst)
-	print lst
+	del_list_item(lst, "B")
+	del_list_item(lst, "E")
+	print("del list item ok, what with list.remove()?")
+	lst.remove('E')
+	'''
+	try:
+		lst.remove('E')
+	except Exception as e:
+		print("Exception", e, "caught as planned")
+		sys.exit(1)
+	print ("No exception")
+	print (lst)
+	'''
 
